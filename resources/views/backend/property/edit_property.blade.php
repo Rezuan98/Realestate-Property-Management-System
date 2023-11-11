@@ -323,6 +323,71 @@
 
 {{-- /////////// edit thumbnail end --}}
 
+{{-- /////////// edit multi image start --}}
+
+<div class="page-content" style="margin-top: -80px">
+    <div class="row profile-body">
+        <div class="col-md-12 col-xl-12 middle-wrapper">
+            <div class="row">
+                <div class="card mb-12">
+                    <div class="card-body">
+                        <h6 class="card-title">Edit Multi-Image </h6>
+                        <form id="myForm" method="post" action="{{ route('update.property.thumnail') }}" enctype="multipart/form-data">
+                            @csrf
+
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>SL</th>
+                                            <th>Images</th>
+                                            <th>Change Images</th>
+                                            <th>Delete</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($multiimage as $key => $img)
+                                        <tr>
+                                            <td class="py-1">
+                                                {{$key+1}}
+                                            </td>
+                                            <td>
+                                                @if (file_exists(public_path($img->photo_name)))
+                                                    <img src="{{ asset($img->photo_name) }}" alt="image" style="width:50px; height:50px;">
+                                                @else
+                                                    <span>Image not found</span>
+                                                @endif
+                                            </td>
+                                            
+                                            
+                                            <td> <input type="file" class="form-group" name="multi_img"></td>
+                                            <td><input type="submit" class="btn btn-primary px-4" value="Update Image" >
+
+                                                <a href="" class="btn btn-danger" id="delete">Delete </a></td>
+                                        </tr> 
+                                        @endforeach
+                                        
+                                       
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <br> <br>
+                            
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form><!-- Move the form closing tag here -->
+                    </div><!-- Col -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{{-- /////////// edit multiimage end --}}
+
+
 
 
 

@@ -93,7 +93,7 @@ class propertyController extends Controller
         foreach($images as $img){
 
             $make_name = hexdec(uniqid()).'.'.$img->getClientOriginalExtension();
-            Image::make($img)->resize(770,520)->save('upload/property/multi_image/'.$name_gen);
+            Image::make($img)->resize(770,520)->save('upload/property/multi_image/'.$make_name);
             $upload_path = 'upload/property/multi_image/'.$make_name;
 
 
@@ -140,16 +140,21 @@ class propertyController extends Controller
      public function editProperty($id){
 
         $property = property::findOrFail($id);
+
+
+       
           
         $type = $property->amenities_id;
         $property_amenities = explode(',',$type);
+
+        $multiimage = multi_image::where('property_id',$id)->get();
 
         $propertyType = propertyType::latest()->get();
         $amenities = amenities::latest()->get();
         $activeAgent = User::where('status','active')->where('role','agent')->latest()->get();
 
 
-        return view('backend.property.edit_property',compact('property','propertyType','amenities','activeAgent','property_amenities'));
+        return view('backend.property.edit_property',compact('property','propertyType','amenities','activeAgent','property_amenities','multiimage'));
 
         
      }
