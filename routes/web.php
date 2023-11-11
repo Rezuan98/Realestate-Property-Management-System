@@ -88,6 +88,7 @@ Route::middleware(['auth','role:admin'])->group(function(){
         route::get('/edit/property/{id}','editProperty')->name('edit.property');
         route::post('/update/property','updateProperty')->name('update.property');
         route::get('/delete/property/{pro}','deleteProperty')->name('delete.property');
+        route::post('/update/property/thumnail','updatePropertyThumnail')->name('update.property.thumnail');
         
        
 

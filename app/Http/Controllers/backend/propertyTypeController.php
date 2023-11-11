@@ -137,4 +137,7 @@ class propertyTypeController extends Controller
     
             return back()->with($notification);
         }
+
+
+       
 }

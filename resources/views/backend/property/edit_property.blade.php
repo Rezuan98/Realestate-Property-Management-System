@@ -283,57 +283,41 @@
 {{-- /////////// edit thumbnail start --}}
 
 <div class="page-content" style="margin-top: -80px">
-
     <div class="row profile-body">
-       
         <div class="col-md-12 col-xl-12 middle-wrapper">
             <div class="row">
-    
                 <div class="card mb-12">
                     <div class="card-body">
                         <h6 class="card-title">Edit Property</h6>
-    
-    
-    
-                        <form id="myForm" method="post" action="{{route('update.property')}}" enctype="multipart/form-data">
-    
+                        <form id="myForm" method="post" action="{{ route('update.property.thumnail') }}" enctype="multipart/form-data">
                             @csrf
 
-                            <input type="hidden" name="id" value="{{$property->id}}">
-                            <input type="hidden" name="old_image" value="{{$property->property_thumnail}}">
+
+                            <input type="hidden" name="id" value="{{ $property->id }}">
+                            <input type="hidden" name="old_image" value="{{ $property->property_thumnail }}">
+
+
 
                             <div class="row mb-3">
                                 <div class="form-group col-md-6">
                                     <label class="form-label">Edit Main Thumbnail</label>
-                                    <input type="file" name="property_thumnail" class="form-control"
-                                        onChange="mainThamUrl(this)">
-
+                                    <input type="file" name="property_thumnail" class="form-control" onChange="mainThamUrl(this)">
                                     <img src="" id="mainThmb" alt="">
                                 </div>
-                                
-
+                                <!-- Move the following div inside the col-md-6 div -->
+                                <div class="form-group col-md-6">
+                                    <label class="form-label"></label>
+                                    <img src="{{ asset($property->property_thumnail) }}" alt="" style="width: 100px; height: 100px;">
+                                </div>
                             </div><!-- Col -->
-                            <div class="form-group col-md-6">
-                                <label class="form-label"></label>
-                                <img src="{{asset($property->property_thumnail)}}" alt="" style="width: 100px; height:100px;">
-                               
-
-                                
-                            </div>
-
-                           
-                        </div><!-- Col -->
-
-                           </form>
-
-                              </div>
-                            </div>
-                        </div>
-                    </div>
-                
-                
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form><!-- Move the form closing tag here -->
+                    </div><!-- Col -->
                 </div>
-         </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
