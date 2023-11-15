@@ -8,9 +8,15 @@ use App\Http\Controllers\userController;
 use App\Http\Controllers\homeController;
 use App\Http\Controllers\backend\propertyTypeController;
 use App\Http\Controllers\backend\propertyController;
+use App\Http\Middleware\RedirectIfAuthenticated;
 
 Route::get('/',[homeController::class,'homePage']);
-Route::get('/admin/login',[adminController::class, 'adminLogin'])->name('admin.login');
+Route::get('/admin/login',[adminController::class, 'adminLogin'])->name('admin.login')->middleware(RedirectIfAuthenticated::class);
+Route::get('/agent/login',[agentController::class, 'agentLogin'])->name('agent.login')->middleware(RedirectIfAuthenticated::class);
+
+
+
+
 
 // Admin group middleware start
 Route::middleware(['auth','role:admin'])->group(function(){

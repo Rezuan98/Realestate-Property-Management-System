@@ -11,7 +11,7 @@
     </div>
     <div class="auto-container">
         <div class="content-box clearfix">
-            <h1>Sign Or In</h1>
+            <h1>Sign In</h1>
             <ul class="bread-crumb clearfix">
                 <li><a href="index.html">Home</a></li>
                 <li>Sign In</li>
@@ -28,13 +28,13 @@
         <div class="row clearfix">
             <div class="col-xl-8 col-lg-12 col-md-12 offset-xl-2 big-column">
                 <div class="sec-title">
-                    <h5>Sign in</h5>
+                    <h5>Agent Sign in</h5>
                     <h2>Sign In With Realshed</h2>
                 </div>
                 <div class="tabs-box">
                     <div class="tab-btn-box">
                         <ul class="tab-btns tab-buttons centred clearfix">
-                            <li class="tab-btn active-btn" data-tab="#tab-1">Login</li>
+                            <li class="tab-btn active-btn" data-tab="#tab-1">Agent Login</li>
                             <li class="tab-btn" data-tab="#tab-2">Register</li>
                         </ul>
                     </div>
@@ -42,16 +42,16 @@
                         <div class="tab active-tab" id="tab-1">
                             <div class="inner-box">
                                 <h4>Sign in</h4>
-                                <form action="{{route('login')}}" method="post" class="default-form">
+                                <form action="{{route('login')}}" method="POST" class="default-form">
                                     @csrf
                                     <div class="form-group">
-                                        <label for="login">Name/Email/Phone</label>
-                                        <input type="text" name="name" required="">
+                                        <label> Agent Name/Email/Phone</label>
+                                        <input type="email" name="email" id="userEmail" required="">
                                     </div>
                                    
                                     <div class="form-group">
                                         <label>Password</label>
-                                        <input type="password" name="name" required="">
+                                        <input type="password" name="password" id="password" autocomplete="new-password">
                                     </div>
                                     <div class="form-group message-btn">
                                         <button type="submit" class="theme-btn btn-one">Sign in</button>
@@ -64,22 +64,29 @@
                         </div>
                         <div class="tab" id="tab-2">
                             <div class="inner-box">
-                                <h4>Sign in</h4>
-                                <form action="signin.html" method="post" class="default-form">
+                                <h4>Sign up</h4>
+                                <form  method="POST" action="{{ route('register') }}" class="default-form">
+                                    @csrf
                                     <div class="form-group">
                                         <label>User name</label>
-                                        <input type="text" name="name" required="">
+                                        <input type="text" name="name" id="name" required="">
                                     </div>
                                     <div class="form-group">
                                         <label>Email address</label>
-                                        <input type="email" name="email" required="">
+                                        <input type="email" name="email" id="email" required="">
                                     </div>
                                     <div class="form-group">
                                         <label>Password</label>
-                                        <input type="password" name="name" required="">
+                                        <input type="password" name="password" id="password"  required="">
+                                        <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Confirm Password</label>
+                                        <input type="password" name="password_confirmation" id="password_confirmation"  required="">
+                                        
                                     </div>
                                     <div class="form-group message-btn">
-                                        <button type="submit" class="theme-btn btn-one">Sign in</button>
+                                        <button type="submit" class="theme-btn btn-one">Register</button>
                                     </div>
                                 </form>
                                 <div class="othre-text">

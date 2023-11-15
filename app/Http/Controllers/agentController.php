@@ -24,4 +24,11 @@ class agentController extends Controller
 
         return redirect('/login');
     }
+
+    public function agentLogin(){
+        
+
+
+        return view('agent.agent_login');
+    }
 }
