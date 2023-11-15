@@ -14,7 +14,7 @@ Route::get('/',[homeController::class,'homePage']);
 Route::get('/admin/login',[adminController::class, 'adminLogin'])->name('admin.login')->middleware(RedirectIfAuthenticated::class);
 Route::get('/agent/login',[agentController::class, 'agentLogin'])->name('agent.login')->middleware(RedirectIfAuthenticated::class);
 
-
+Route::post('/agent/register', [AgentController::class, 'AgentRegister'])->name('agent.register');
 
 
 
