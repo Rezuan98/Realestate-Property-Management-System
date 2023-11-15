@@ -87,13 +87,16 @@ Route::middleware(['auth','role:admin'])->group(function(){
         route::post('/store/property','storeProperty')->name('store.property');
         route::get('/edit/property/{id}','editProperty')->name('edit.property');
         route::post('/update/property','updateProperty')->name('update.property');
-        route::get('/delete/property/{pro}','deleteProperty')->name('delete.property');
+        route::get('/details/property/{id}','detailsProperty')->name('details.property');
+       
         route::post('/update/property/thumnail','updatePropertyThumnail')->name('update.property.thumnail');
         route::post('/update/property/multiimage','updatePropertyMultiimage')->name('update.property.multiimage');
         route::get('/property/multiimage/delete/{id}','deletePropertyMultiimage')->name('property.multiimage.delete');
         route::post('/store/new/multiimage','storeNewMultiimage')->name('store.new.multiimage');
         route::post('/update/property/facilities','updatePropertyFacilities')->name('update.property.facilities');
-       
+        route::get('/delete/property/{id}','deleteProperty')->name('delete.property');
+        route::post('/inactive/property','inactiveProperty')->name('inactive.property');
+        route::post('/active/property','activeProperty')->name('active.property');
 
         
      

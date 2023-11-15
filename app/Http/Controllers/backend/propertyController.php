@@ -330,28 +330,95 @@ $notification = array(
 
             
          }
+        }
          $notification = array(
             'message' => 'Property facility updated Successfully',
             'alert-type' => 'success'
         );
     
         return redirect()->back()->with($notification); 
-    }
+    
 
   }
 
      //  end property thumnail update methode
 
 
-//      public function deleteProperty($pro){
+     public function deleteProperty($id){
 
-//         property::findOrFail($pro)->delete();
+       $property = property::findOrFail($id);
+       unlink($property->property_thumnail);
 
-//         $notification = array(
-//             'message' => 'Data delete Successfully',
-//              'alert-type' => 'success');
-//    return redirect()->route('all.property')->with( $notification);
+       property::findOrFail($id)->delete();
+
+       $image = multi_image::where('property_id',$id)->get();
+
+       foreach($image as $img){
+        unlink($img->photo_name);
+        multi_image::where('property_id',$id)->delete();
+       }
+
+       $facilitiesData = facilities::where('property_id',$id)->get();
+       foreach($facilitiesData as $item){
+        $item->facility_name;
+        facilities::where('property_id',$id)->delete();
+       }
+
+        $notification = array(
+            'message' => 'Data delete Successfully',
+             'alert-type' => 'success');
+   return redirect()->route('all.property')->with( $notification);
 
 
-//      }
+     }
+     public function detailsProperty($id){
+        
+
+        $facilities = facilities::where('property_id',$id)->get();
+        $property = property::findOrFail($id);
+  
+        $type = $property->amenities_id;
+        $property_amenities = explode(',',$type);
+
+        $multiimage = multi_image::where('property_id',$id)->get();
+
+        $propertyType = propertyType::latest()->get();
+        $amenities = amenities::latest()->get();
+        $activeAgent = User::where('status','active')->where('role','agent')->latest()->get();
+
+
+        return view('backend.property.details_property',compact('property','propertyType','amenities','activeAgent','property_amenities','multiimage','facilities'));
+
+        
+     }
+
+     public function inactiveProperty(Request $request){
+
+        $pid = $request->id;
+
+        property::findOrFail($pid)->update([
+
+            'status' => 0,
+        ]);
+        $notification = array(
+            'message' => 'property inactived Successfully',
+             'alert-type' => 'success');
+   return redirect()->route('all.property')->with( $notification);
+
+     }
+
+     public function activeProperty(Request $request){
+
+        $pid = $request->id;
+
+        property::findOrFail($pid)->update([
+
+            'status' => 1,
+        ]);
+        $notification = array(
+            'message' => 'property inactived Successfully',
+             'alert-type' => 'success');
+   return redirect()->route('all.property')->with( $notification);
+
+     }
 }

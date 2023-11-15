@@ -435,7 +435,7 @@
                                             <label for="facility_name">Facilities</label>
                                             <select name="facility_name[]" id="facility_name" class="form-control">
                                                 <option value="">Select Facility</option>
-                                                <option value="Hospital" {{$item->facility_name == 'hospital' ? 'selected' : ''}}>Hospital</option>
+                                                <option value="Hospital" {{$item->facility_name == 'Hospital' ? 'selected' : ''}}>Hospital</option>
                                                 <option value="SuperMarket" {{$item->facility_name == 'SuperMarket' ? 'selected' : ''}}>Super Market</option>
                                                 <option value="School" {{$item->facility_name == 'School' ? 'selected' : ''}}>School</option>
                                                 <option value="Entertainment" {{$item->facility_name == 'Entertainment' ? 'selected' : ''}}>Entertainment</option>

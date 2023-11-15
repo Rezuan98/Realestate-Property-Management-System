@@ -50,8 +50,9 @@
 
             </td> 
             <td>
-<a href="{{ route('edit.property',$item->id) }}" class="btn btn-inverse-warning"> Edit </a>
-<a href="{{ route('delete.property',$item->id) }}" class="btn btn-inverse-danger" id="delete"> Delete  </a>
+              <a href="{{ route('details.property',$item->id) }}" class="btn btn-inverse-info"> <i data-feather="eye" title="Edit">  </i> </a>
+<a href="{{ route('edit.property',$item->id) }}" class="btn btn-inverse-warning"> <i data-feather="edit" title="Edit">  </i> </a>
+<a href="{{ route('delete.property',$item->id) }}" class="btn btn-inverse-danger" id="delete"> <i data-feather="trash-2" title="Edit">  </i>  </a>
             </td> 
           </tr>
          @endforeach
