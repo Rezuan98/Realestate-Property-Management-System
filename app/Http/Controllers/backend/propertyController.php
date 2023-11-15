@@ -138,12 +138,11 @@ class propertyController extends Controller
 
     // start methode for edit property 
      public function editProperty($id){
+        
 
+        $facilities = facilities::where('property_id',$id)->get();
         $property = property::findOrFail($id);
-
-
-       
-          
+  
         $type = $property->amenities_id;
         $property_amenities = explode(',',$type);
 
@@ -154,7 +153,7 @@ class propertyController extends Controller
         $activeAgent = User::where('status','active')->where('role','agent')->latest()->get();
 
 
-        return view('backend.property.edit_property',compact('property','propertyType','amenities','activeAgent','property_amenities','multiimage'));
+        return view('backend.property.edit_property',compact('property','propertyType','amenities','activeAgent','property_amenities','multiimage','facilities'));
 
         
      }
@@ -211,6 +210,7 @@ class propertyController extends Controller
 
      }
 
+    //  start property thumnail update methode
 
      public function updatePropertyThumnail(Request $request)
      {
@@ -235,7 +235,112 @@ class propertyController extends Controller
             'message' => 'Property Thumnail updated Successfully',
              'alert-type' => 'success');
    return redirect()->back()->with($notification);
-     }
+     }//  end property thumnail update methode
+
+     //  start property multiimage update methode
+   public function updatePropertyMultiimage(Request $request){
+
+    $imgs = $request->multi_img;
+
+    foreach($imgs as $id => $img){
+
+        $imgDel = multi_image::findOrFail($id);
+        unlink($imgDel->photo_name);
+
+        $make_name = hexdec(uniqid()).'.'.$img->getClientOriginalExtension();
+        Image::make($img)->resize(770,520)->save('upload/property/multi_image/'.$make_name);
+        $upload_path = 'upload/property/multi_image/'.$make_name;
+
+
+        multi_image::where('id',$id)->update([
+
+            'photo_name' => $upload_path,
+            'updated_at' => carbon::now(),
+
+        ]);
+
+        $notification = array(
+            'message' => 'Property Image updated Successfully',
+             'alert-type' => 'success');
+   return redirect()->back()->with($notification);
+    }
+
+   }
+
+   public function deletePropertyMultiimage($id){
+
+    $old_img = multi_image::findOrFail($id);
+    unlink($old_img->photo_name);
+
+    multi_image::findOrFail($id)->delete();
+
+    $notification = array(
+        'message' => 'Property Image Deleted Successfully',
+         'alert-type' => 'danger');
+return redirect()->back()->with($notification);
+
+
+   }
+
+   public function storeNewMultiimage(Request $request){
+
+    $new_multi = $request->imageid;
+    $image = $request->file('multiimage');
+
+ $make_name = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+Image::make($image)->resize(770,520)->save('upload/property/multi_image/'.$make_name);
+    $uploadPath = 'upload/property/multi_image/'.$make_name;
+
+    multi_image::insert([
+        'property_id' => $new_multi,
+        'photo_name' => $uploadPath,
+        'created_at' => Carbon::now(), 
+    ]);
+
+$notification = array(
+        'message' => 'Property Multi Image Added Successfully',
+        'alert-type' => 'success'
+    );
+
+    return redirect()->back()->with($notification); 
+   }
+  public function updatePropertyFacilities(Request $request){
+
+    $pid = $request->id;
+
+    if($request->facility_name == Null){
+
+        return redirect()->back();
+    }else {
+        facilities::where('property_id',$pid)->delete();
+
+        $facilities = count($request->facility_name);
+
+        
+
+            for($i = 0; $i < $facilities; $i++){
+
+                $fcount = new facilities();
+
+                $fcount ->property_id = $pid;
+                $fcount -> facility_name = $request->facility_name[$i];
+                $fcount -> distance = $request->distance[$i];
+                $fcount->save();
+
+
+            
+         }
+         $notification = array(
+            'message' => 'Property facility updated Successfully',
+            'alert-type' => 'success'
+        );
+    
+        return redirect()->back()->with($notification); 
+    }
+
+  }
+
+     //  end property thumnail update methode
 
 
 //      public function deleteProperty($pro){
