@@ -133,10 +133,99 @@ class adminController extends Controller
     }
      // end update admin password mehtode
   
-  
-  
+  //  agent all methode in admincontroller fon manage agent
+
+  public function allAgent(){
+
+    $allAgent = User:: where('role','agent')->get();
+
+    return view('backend.agentuser.all_agent',compact('allAgent'));
   }
-    
+   
+
+  public function addAgent(){
+
+    return view('backend.agentuser.add_agent');
+  }
+
+  public function storeAgent(Request $request){
+
+    user::insert([
+
+      'name' => $request->name,
+      'email' => $request->email,
+      'phone' => $request->phone,
+      'address' => $request->address,
+      'password' => Hash::make($request->password),
+      'role' => 'agent',
+      'status' => 'active',
+
+
+    ]);
+    $notification = array(
+      'message' => 'Agent Added Successfully',
+       'alert-type' => 'success');
+return redirect()->route('all.agent')->with($notification);
+
+  }
+
+  public function editAgent($idnum){
+
+    $allAgent = User::findOrFail($idnum);
+
+    return view('backend.agentuser.edit_agent',compact('allAgent'));
+  }
+
+  public function updateAgent(Request $request){
+ 
+    $user_id = $request->id;
+    user::findOrFail($user_id)->update([
+
+      'name' => $request->name,
+      'email' => $request->email,
+      'phone' => $request->phone,
+      'address' => $request->address,
+      'password' => Hash::make($request->password),
+      'role' => 'agent',
+      'status' => 'active',
+
+
+    ]);
+    $notification = array(
+      'message' => 'Agent Updated Successfully',
+       'alert-type' => 'success');
+return redirect()->route('all.agent')->with($notification);
+
+  }
+
+  public function deleteAgent($id){
+
+    user::findOrFail($id)->delete();
+
+    $notification = array(
+      'message' => 'Agent Deleted Successfully',
+       'alert-type' => 'success');
+return redirect()->route('all.agent')->with($notification);
+  }
+
+
+
+
+
+
+
+
+
+
+
+  // end agent all mehtode in admincontroller for manage agents
+  
+
+
+
+  }
+   
+  
 
 
 
@@ -202,4 +291,4 @@ class adminController extends Controller
 
      
 //     }
-// }
+

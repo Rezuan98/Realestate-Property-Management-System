@@ -119,3 +119,20 @@ Route::middleware(['auth','role:admin'])->group(function(){
     
 });
 // propertyTypeController group route end
+
+
+// agent manage in admin dashboard
+
+route::controller(adminController::class)->group(function(){
+
+    route::get('/all/agent','allagent')->name('all.agent');
+    route::get('/add/agent','addAgent')->name('add.agent');
+    route::post('/store/agent','storeAgent')->name('store.agent');
+    route::get('/edit/agent/{id}','editAgent')->name('edit.agent');
+    route::post('/update/agent','updateAgent')->name('update.agent');
+    route::get('/delete/agent/{id}','deleteAgent')->name('delete.agent');
+    
+
+
+ 
+});
