@@ -9,6 +9,7 @@ use App\Http\Controllers\homeController;
 use App\Http\Controllers\backend\propertyTypeController;
 use App\Http\Controllers\backend\propertyController;
 use App\Http\Middleware\RedirectIfAuthenticated;
+use App\Http\Controllers\agent\agentPropertyController;
 
 Route::get('/',[homeController::class,'homePage']);
 Route::get('/admin/login',[adminController::class, 'adminLogin'])->name('admin.login')->middleware(RedirectIfAuthenticated::class);
@@ -131,8 +132,31 @@ route::controller(adminController::class)->group(function(){
     route::get('/edit/agent/{id}','editAgent')->name('edit.agent');
     route::post('/update/agent','updateAgent')->name('update.agent');
     route::get('/delete/agent/{id}','deleteAgent')->name('delete.agent');
+
+    route::get('/changestatus','changeStatus');
     
 
 
  
 });
+
+// / agent grouop middleware start
+Route::middleware(['auth','role:agent'])->group(function(){
+    route::controller(agentPropertyController::class)->group(function(){
+        route::get('/agent/all/property','agentAllProperty')->name('agent.all.property');
+        route::get('/agent/add/property','agentAddProperty')->name('agent.add.property');
+        route::post('/agent/store/property','agentStoreProperty')->name('agent.store.property');
+        route::get('/agent/edit/property/{id}','agentEditProperty')->name('agent.edit.property');
+        route::post('/agent/update/property','agentUpdateProperty')->name('agent.update.property');
+        route::post('/agent/update/property/thumbnail','agentUpdatePropertyThumbnail')->name('agent.update.property.thumnail');
+        route::post('/update//agent/property/multiimage','agentUpdatePropertyMultiimage')->name('update.agent.property.multiimage');
+        route::post('/agent/store/new/multiimage','agentStoreNewMultiimage')->name('agent.store.new.multiimage');
+        route::get('/agent/property/multiimage/delete/{id}','agentPropertyMultiimageDelete')->name('agent.property.multiimage.delete'); 
+        route::post('/agent/update/property/facilities','agentUpdatePropertyFacilities')->name('agent.update.property.facilities');
+        route::get('/agent/delete/property/{id}','agentDeleteProperty')->name('agent.delete.property');
+        route::get('/agent/details/property/{id}','agentDetailsProperty')->name('agent.details.property');
+    
+    
+    });
+});
+// agent group middleware end

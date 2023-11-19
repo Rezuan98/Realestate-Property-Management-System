@@ -208,6 +208,16 @@ return redirect()->route('all.agent')->with($notification);
 return redirect()->route('all.agent')->with($notification);
   }
 
+  public function changeStatus(Request $request){
+
+    $user = User::find($request->user_id);
+    $user->status = $request->status;
+    $user->save();
+
+    return response()->json(['success'=>'Status Changed Successfully']);
+
+  }// End Method 
+
 
 
 

@@ -1,7 +1,10 @@
-@extends('admin.admin_Dashboard')
+@extends('agent.agent_dashboard')
+
+
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-@section('admin')
+@section('agent')
 <div class="page-content">
 
 <div class="row profile-body">
@@ -18,7 +21,7 @@
 
 
 
-                    <form id="myForm" method="post" action="{{route('update.property')}}" enctype="multipart/form-data">
+                    <form id="myForm" method="post" action="{{route('agent.update.property')}}" enctype="multipart/form-data">
 
                         @csrf
 
@@ -202,20 +205,7 @@
                                     </select>
                                 </div>
                             </div><!-- Col -->
-                            <div class="col-sm-4">
-                                <div class="form-group mb-3">
-                                    <label class="form-label">Agent</label>
-                                    <select name="agent" value="{{$property->lowest_price}}"  class="form-select" id="exampleFormControlSelect1">
-                                        <option selected="" disabled="">Select Agent</option>
-                                        @foreach ($activeAgent as $agent)
-                                            <option value="{{ $agent->id }}" {{$agent->id == $property->agent_id ? 'selected' : ''}}>{{ $agent->name }}</option>
-                                        @endforeach
-
-
-
-                                    </select>
-                                </div>
-                            </div><!-- Col -->
+                          
 
                         </div><!-- Row -->
                         <div class="col-sm-12">
@@ -289,7 +279,7 @@
                 <div class="card mb-12">
                     <div class="card-body">
                         <h6 class="card-title">Edit Property</h6>
-                        <form id="myForm" method="post" action="{{ route('update.property.thumnail') }}" enctype="multipart/form-data">
+                        <form id="myForm" method="post" action="{{ route('agent.update.property.thumnail') }}" enctype="multipart/form-data">
                             @csrf
 
 
@@ -332,7 +322,7 @@
                 <div class="card mb-12">
                     <div class="card-body">
                         <h6 class="card-title">Edit Multi-Image </h6>
-                        <form id="myForm" method="post" action="{{ route('update.property.multiimage') }}" enctype="multipart/form-data">
+                        <form id="myForm" method="post" action="{{ route('update.agent.property.multiimage') }}" enctype="multipart/form-data">
                             @csrf
 
                             <div class="table-responsive">
@@ -363,7 +353,7 @@
                                             <td> <input type="file" class="form-control" name="multi_img[{{$img->id}}]"></td>
                                             <td><input type="submit" class="btn btn-primary px-4" value="Update Image" >
 
-                                                <a href="{{ route('property.multiimage.delete',$img->id)}}" class="btn btn-danger" id="delete">Delete </a></td>
+                                                <a href="{{ route('agent.property.multiimage.delete',$img->id)}}" class="btn btn-danger" id="delete">Delete </a></td>
                                         </tr> 
                                         @endforeach
                                         
@@ -374,7 +364,7 @@
 
                         </form><!-- Move the form closing tag here -->
 
-                        <form id="myForm" method="post" action="{{ route('store.new.multiimage') }}" enctype="multipart/form-data">
+                        <form id="myForm" method="post" action="{{ route('agent.store.new.multiimage')}}" enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="imageid" value="{{$property->id}}">
                             <table class="table table-striped">
@@ -419,7 +409,7 @@
                 <div class="card mb-12">
                     <div class="card-body">
                         <h6 class="card-title">Edit Facility </h6>
-                        <form id="myForm" method="post" action="{{ route('update.property.facilities') }}" enctype="multipart/form-data">
+                        <form id="myForm" method="post" action="{{ route('agent.update.property.facilities') }}" enctype="multipart/form-data">
                             @csrf
 
                             <input type="hidden" name="id" value="{{ $property->id }}">

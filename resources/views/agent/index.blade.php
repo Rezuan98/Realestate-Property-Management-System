@@ -1,7 +1,24 @@
 @extends('agent.agent_dashboard')
 @section('agent')
 
+@php
+$id = Auth::user()->id;
+$agentId = App\Models\user::find($id);
+$agentStatus = $agentId->status;
+    
+@endphp
  <div class="page-content">
+
+  @if ($agentStatus === 'active')
+
+  <h4>Agent Account  is <span class="text-success">Active</span></h4>
+
+  @else
+
+  <h4>Agent Account is <span class="text-danger">Inactive</span></h4>
+  <p><span class="text-danger">Please wait till Admin Aproval</span></p>
+      
+  @endif
 
         <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
           <div>
